@@ -1,33 +1,44 @@
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { contactsSelectors } from 'redux/contactForm';
-import ContactForm from './components/ContactForm';
-import Filter from './components/Filter';
-import ContactList from './components/ContactList';
-import s from './App.module.css';
+import { lazy, Suspense } from 'react';
+import { Route, Switch } from 'react-router-dom';
+import ContactsWrapper from 'components/ContactsWrapper/ContactsWrapper';
+import Appbar from './components/Appbar'
+// import s from './App.module.css';
 
-function App ({ contacts }) {
+const NoSuchPageView = lazy(() => import('./views/NoSuchPageView' 
+  /* webpackChunkName: "no-page-view" */));
+// const ContactsWrapper = lazy(() => import('./components/ContactsWrapper' 
+//   /* webpackChunkName: "cotacts" */));
+
+function App () {
   return (
-    <div className={s.context}>
-      <h1 className="text">Phonebook</h1>
-      <ContactForm />
-      {contacts.length > 0 &&
-      <> 
-        <Filter />
-        <h2 className="text">Contacts</h2>
-      </>
-      }
-      <ContactList />
-    </div>
+    <>
+      <Appbar />
+      
+      <Suspense fallback={<h1>Loading...</h1>}>
+        <Switch>
+          <Route path="/" exact>
+            <div>HomePageView</div>
+          </Route>
+
+          <Route path="/register" exact>
+            <div>Register</div>
+          </Route>
+
+          <Route path="/login">
+            <div>Login</div>
+          </Route>
+
+          <Route path="/contacts">
+            <ContactsWrapper />
+          </Route>
+
+          <Route>
+            <NoSuchPageView />
+          </Route>
+        </Switch>
+      </Suspense>
+    </>
   )
 };
 
-const mapStateToProps = (state) => ({
-  contacts: contactsSelectors.getContacts(state),
-});
-
-App.propTypes = {
-  contacts: PropTypes.arrayOf(PropTypes.object),
-};
-
-export default connect(mapStateToProps, null)(App);
+export default App;
