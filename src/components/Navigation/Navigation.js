@@ -4,8 +4,15 @@ import s from './Navigation.module.css';
 const Navigation = () => (
     <>
         <NavLink 
-            to='/register'
+            to='/'
             exact
+            className={s.navLink}
+            activeClassName={s.navActiveLink}
+        >
+            Home
+        </NavLink>
+        <NavLink 
+            to='/register'
             className={s.navLink}
             activeClassName={s.navActiveLink}
         >
@@ -13,7 +20,6 @@ const Navigation = () => (
         </NavLink>
         <NavLink 
             to='/login'
-            exact
             className={s.navLink}
             activeClassName={s.navActiveLink}
         >
@@ -21,7 +27,6 @@ const Navigation = () => (
         </NavLink>
         <NavLink 
             to='/contacts'
-            exact
             className={s.navLink}
             activeClassName={s.navActiveLink}
         >
