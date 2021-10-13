@@ -6,6 +6,8 @@ import Appbar from './components/Appbar'
 
 const NoSuchPageView = lazy(() => import('./views/NoSuchPageView' 
   /* webpackChunkName: "no-page-view" */));
+  const Registration = lazy(() => import('./views/Registration' 
+  /* webpackChunkName: "registration-wiew" */));
 // const ContactsWrapper = lazy(() => import('./components/ContactsWrapper' 
 //   /* webpackChunkName: "cotacts" */));
 
@@ -21,7 +23,7 @@ function App () {
           </Route>
 
           <Route path="/register" exact>
-            <div>Register</div>
+            <Registration />
           </Route>
 
           <Route path="/login">
