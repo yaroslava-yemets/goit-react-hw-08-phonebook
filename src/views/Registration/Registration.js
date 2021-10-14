@@ -63,7 +63,8 @@ const Registration = () => {
         // }, 400);
         setSubmitting(false);
         // values.name = '';
-        values = {...INITIAL_VALUES}
+        // values.password = '';
+        // values.email = '';
     }, [dispatch]);
     
     // const handleSubmit = e => {

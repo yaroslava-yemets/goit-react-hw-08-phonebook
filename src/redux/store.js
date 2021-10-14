@@ -17,9 +17,10 @@ import authReducer from './auth/auth-slice';
 console.log('authReducer', authReducer);
 
 const middleware = [...getDefaultMiddleware({
-        serializableCheck: {
-            ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-        },
+        // serializableCheck: {
+        //     ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        // },
+        serializableCheck: false,
     }), 
     logger,
 ];
@@ -45,9 +46,9 @@ const store = configureStore({
 //     },
 // })
 
-const persistor = persistStore(store);
+// const persistor = persistStore(store);
 
-export default { store, persistor };
+// export default { store, persistor };
 
-// export default store;
+export default store;
 
