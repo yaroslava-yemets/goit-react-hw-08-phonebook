@@ -2,12 +2,16 @@ import { lazy, Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import ContactsWrapper from 'components/ContactsWrapper/ContactsWrapper';
 import Appbar from './components/Appbar'
+
+import HomePage from './views/HomePage';
 // import s from './App.module.css';
 
 const NoSuchPageView = lazy(() => import('./views/NoSuchPageView' 
   /* webpackChunkName: "no-page-view" */));
-  const Registration = lazy(() => import('./views/Registration' 
+const Registration = lazy(() => import('./views/Registration' 
   /* webpackChunkName: "registration-wiew" */));
+const Login = lazy(() => import('./views/Login' 
+  /* webpackChunkName: "login-wiew" */));
 // const ContactsWrapper = lazy(() => import('./components/ContactsWrapper' 
 //   /* webpackChunkName: "cotacts" */));
 
@@ -19,7 +23,8 @@ function App () {
       <Suspense fallback={<h1>Loading...</h1>}>
         <Switch>
           <Route path="/" exact>
-            <div>HomePageView</div>
+            {/* <HomePage /> */}
+            <div>Hello</div>
           </Route>
 
           <Route path="/register" exact>
@@ -27,7 +32,7 @@ function App () {
           </Route>
 
           <Route path="/login">
-            <div>Login</div>
+            <Login />
           </Route>
 
           <Route path="/contacts">

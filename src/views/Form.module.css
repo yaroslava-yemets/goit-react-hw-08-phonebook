@@ -1,0 +1,25 @@
+.formWrapper {
+    width: 60vw;
+    margin: 0 auto;
+    padding: 35px;
+}
+
+.formTitle {
+    text-align: center;
+    color: #123f30;
+}
+
+.form {
+    margin-bottom: 25px;
+}
+
+.registerInfo {
+    color: #060616;
+    font-size: 18px;
+    line-height: 1.27;
+}
+
+.link  {
+    color: #0e0e31;
+    font-style: italic;
+}
