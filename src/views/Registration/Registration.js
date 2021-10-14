@@ -1,8 +1,10 @@
 import React, { useCallback, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Formik } from 'formik';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import { authOperations } from 'redux/auth';
 import s from '../Form.module.css';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
@@ -11,10 +13,11 @@ const INITIAL_VALUES = {
     name: "",
     email: "",
     password: "",
-    confirmPassword: "",
+    // confirmPassword: "",
 };
 
 const Registration = () => {
+    const dispatch = useDispatch();
     // const [showPassword, setShowPassword] = useState(false);
 
     const validate = useCallback((values) => {
@@ -39,25 +42,38 @@ const Registration = () => {
             errors.password = 'Password should contain more then 8 symbols';
         }
 
-        if (!values.confirmPassword) {
-            errors.confirmPassword = 'Required';
-        } else if (values.confirmPassword.length < 8) {
-            errors.confirmPassword = 'Password should contain more then 8 symbols';
-        } else if (values.confirmPassword !== values.password) {
-            errors.confirmPassword = 'Passwords should be equal';
-        }
+        // if (!values.confirmPassword) {
+        //     errors.confirmPassword = 'Required';
+        // } else if (values.confirmPassword.length < 8) {
+        //     errors.confirmPassword = 'Password should contain more then 8 symbols';
+        // } else if (values.confirmPassword !== values.password) {
+        //     errors.confirmPassword = 'Passwords should be equal';
+        // }
 
         return errors;
     }, []);
 
     const handleSubmit = useCallback((values, { setSubmitting }) => {
-        setTimeout(() => {
-        console.log('submit');
-        alert(JSON.stringify(values, null, 2));
+        // const { name, email, password } = values;
+        console.log('values', values);
+        dispatch(authOperations.register(values));
+        // setTimeout(() => {
+        // alert(JSON.stringify(values, null, 2));
+        // setSubmitting(false);
+        // }, 400);
         setSubmitting(false);
-        }, 400);
-    }, []);
+        // values.name = '';
+        values = {...INITIAL_VALUES}
+    }, [dispatch]);
     
+    // const handleSubmit = e => {
+    //     e.preventDefault();
+    //     dispatch(authOperations.register({ name, email, password }));
+    //     setName('');
+    //     setEmail('');
+    //     setPassword('');
+    // };
+
     // const handleClickShowPassword = () => {
     //     setShowPassword(!showPassword)
     // };
@@ -106,7 +122,7 @@ const Registration = () => {
                     error={touched.password && Boolean(errors.password)}
                     helperText={touched.password && errors.password}
                     />
-                    <TextField
+                    {/* <TextField
                     fullWidth
                     id="confirmPassword"
                     name="confirmPassword"
@@ -117,7 +133,7 @@ const Registration = () => {
                     onBlur={handleBlur}
                     error={touched.confirmPassword && Boolean(errors.confirmPassword)}
                     helperText={touched.confirmPassword && errors.confirmPassword}
-                    />
+                    /> */}
 
                     <Button 
                         color="primary" 

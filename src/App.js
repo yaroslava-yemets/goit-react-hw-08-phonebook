@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import ContactsWrapper from 'components/ContactsWrapper/ContactsWrapper';
 import Appbar from './components/Appbar'
 
-import HomePage from './views/HomePage';
+import Basic from './views/HomePage';
 // import s from './App.module.css';
 
 const NoSuchPageView = lazy(() => import('./views/NoSuchPageView' 
@@ -24,7 +24,7 @@ function App () {
         <Switch>
           <Route path="/" exact>
             {/* <HomePage /> */}
-            <div>Hello</div>
+            <Basic />
           </Route>
 
           <Route path="/register" exact>

@@ -1,6 +1,8 @@
 import React, { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Formik } from 'formik';
+import { authOperations } from 'redux/auth';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import s from '../Form.module.css';
@@ -11,6 +13,8 @@ const INITIAL_VALUES = {
 };
 
 const Login = () => {
+    const dispatch = useDispatch();
+
     const validate = useCallback((values) => {
         const errors = {};
         if (!values.email) {
@@ -26,16 +30,21 @@ const Login = () => {
         } else if (values.password.length < 8) {
             errors.password = 'Password should contain more then 8 symbols';
         }
-        
+
         return errors;
     }, []);
 
+    // const handleSubmit = useCallback((values, { setSubmitting }) => {
+    //     setTimeout(() => {
+    //     alert(JSON.stringify(values, null, 2));
+    //     setSubmitting(false);
+    //     }, 400);
+    // }, []);
+
     const handleSubmit = useCallback((values, { setSubmitting }) => {
-        setTimeout(() => {
-        alert(JSON.stringify(values, null, 2));
-        setSubmitting(false);
-        }, 400);
-    }, []);
+        dispatch(authOperations.logIn(values));
+        setSubmitting(false); 
+    }, [dispatch]);
 
     return (
         <div className={s.formWrapper}>

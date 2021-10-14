@@ -1,66 +1,63 @@
-// import React, { useState } from 'react';
-// import IconButton from '@mui/material/IconButton';
-// import Input from '@mui/material/Input';
-// import InputLabel from '@mui/material/InputLabel';
-// import InputAdornment from '@mui/material/InputAdornment';
-// import FormControl from '@mui/material/FormControl';
-// import VisibilityIcon from '@material-ui/icons/Visibility';
-// import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import React from 'react';
+import { Formik } from 'formik';
 
-import * as React from 'react';
-import { makeStyles } from '@mui/styles';
-import Button from '@mui/material/Button';
+const Basic = () => (
+  <div>
+    <h1>Anywhere in your app!</h1>
+    <Formik
+      initialValues={{ email: '', password: '' }}
+      validate={values => {
+        const errors = {};
+        if (!values.email) {
+          errors.email = 'Required';
+        } else if (
+          !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+        ) {
+          errors.email = 'Invalid email address';
+        }
+        return errors;
+      }}
+      onSubmit={(values, { setSubmitting }) => {
+        setTimeout(() => {
+          alert(JSON.stringify(values, null, 2));
+          setSubmitting(false);
+        }, 400);
+      }}
+    >
+      {({
+        values,
+        errors,
+        touched,
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        isSubmitting,
+        /* and other goodies */
+      }) => (
+        <form onSubmit={handleSubmit}>
+          <input
+            type="email"
+            name="email"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.email}
+          />
+          {errors.email && touched.email && errors.email}
+          <input
+            type="password"
+            name="password"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.password}
+          />
+          {errors.password && touched.password && errors.password}
+          <button type="submit" disabled={isSubmitting}>
+            Submit
+          </button>
+        </form>
+      )}
+    </Formik>
+  </div>
+);
 
-const useStyles = makeStyles({
-  root: {
-    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-    border: 0,
-    borderRadius: 3,
-    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-    color: 'white',
-    height: 48,
-    padding: '0 30px',
-  },
-});
-
-export default function Hook() {
-  const classes = useStyles();
-  return <Button className={classes.root}>Hook</Button>;
-}
-
-// const HomePage = () => {   
-//     const [showPassword, setShowPassword] = useState(false);
-
-//     const handleChange = (event) => {
-//         setShowPassword(event.target.value);
-//     };
-    
-//     const handleClickShowPassword = () => {
-//         setShowPassword(!showPassword)
-//     };
-
-//     return (
-//         <FormControl sx={{ m: 1, width: '300px' }} variant="standard">
-//           <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
-//           <Input
-//             id="standard-adornment-password"
-//             type={showPassword ? 'text' : 'password'}
-//             value={showPassword}
-//             onChange={handleChange}
-//             endAdornment={
-//               <InputAdornment position="end">
-//                 <IconButton
-//                   aria-label="toggle password visibility"
-//                   onClick={handleClickShowPassword}
-//                 //   onMouseDown={handleMouseDownPassword}
-//                 >
-//                   {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-//                 </IconButton>
-//               </InputAdornment>
-//             }
-//           />
-//         </FormControl>
-//     )
-// };
-
-// export default HomePage;
+export default Basic;
