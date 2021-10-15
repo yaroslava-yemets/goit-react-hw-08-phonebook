@@ -14,13 +14,10 @@ import logger from 'redux-logger'
 import contactsReducer from './contactForm/contacts-reducer';
 import authReducer from './auth/auth-slice';
 
-console.log('authReducer', authReducer);
-
 const middleware = [...getDefaultMiddleware({
-        // serializableCheck: {
-        //     ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-        // },
-        serializableCheck: false,
+        serializableCheck: {
+            ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        },
     }), 
     logger,
 ];
@@ -31,7 +28,7 @@ const authPersistConfig = {
     whitelist: ['token'],
 };
 
-const store = configureStore({
+export const store = configureStore({
     reducer: {
         auth: persistReducer(authPersistConfig, authReducer),
         contacts: contactsReducer,
@@ -40,15 +37,5 @@ const store = configureStore({
     devTools: process.env.NODE_ENV === 'development',
 });
 
-// const store = configureStore({
-//     reducer: {
-//         contacts: contactsReducer,
-//     },
-// })
-
-// const persistor = persistStore(store);
-
-// export default { store, persistor };
-
-export default store;
+export const persistor = persistStore(store);
 

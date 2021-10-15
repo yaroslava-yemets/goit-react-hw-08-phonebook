@@ -3,11 +3,15 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Formik } from 'formik';
 import Button from '@material-ui/core/Button';
+import Box from '@material-ui/core/Box';
+import Input from '@material-ui/core/Input';
 import TextField from '@material-ui/core/TextField';
 import { authOperations } from 'redux/auth';
 import s from '../Form.module.css';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+
+
 
 const INITIAL_VALUES = {
     name: "",
@@ -18,7 +22,7 @@ const INITIAL_VALUES = {
 
 const Registration = () => {
     const dispatch = useDispatch();
-    // const [showPassword, setShowPassword] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const validate = useCallback((values) => {
         const errors = {};
@@ -75,9 +79,10 @@ const Registration = () => {
     //     setPassword('');
     // };
 
-    // const handleClickShowPassword = () => {
-    //     setShowPassword(!showPassword)
-    // };
+    const handleClickShowPassword = () => {
+        console.log('click');
+        setShowPassword(showPassword => !showPassword);
+    };
 
     return (
         <div className={s.formWrapper}>
@@ -111,7 +116,26 @@ const Registration = () => {
                     error={touched.email && Boolean(errors.email)}
                     helperText={touched.email && errors.email}
                     />
-                    <TextField
+                    <Box sx={{ display: 'flex'}}>
+                        <TextField
+                        fullWidth
+                        id="password"
+                        name="password"
+                        label="Password"
+                        type={showPassword? "text" : "password"}
+                        value={values.password}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        error={touched.password && Boolean(errors.password)}
+                        helperText={touched.password && errors.password}
+                        />
+                        <Button 
+                            onClick={handleClickShowPassword}
+                        > 
+                            {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                        </Button>
+                    </Box>
+                    {/* <TextField
                     fullWidth
                     id="password"
                     name="password"
@@ -123,18 +147,35 @@ const Registration = () => {
                     error={touched.password && Boolean(errors.password)}
                     helperText={touched.password && errors.password}
                     />
-                    {/* <TextField
-                    fullWidth
-                    id="confirmPassword"
-                    name="confirmPassword"
-                    label="Confirm password"
-                    type="password"
-                    value={values.confirmPassword}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={touched.confirmPassword && Boolean(errors.confirmPassword)}
-                    helperText={touched.confirmPassword && errors.confirmPassword}
-                    /> */}
+                    <Box sx={{ display: 'flex'}}>
+                        <TextField
+                        fullWidth
+                        id="confirmPassword"
+                        name="confirmPassword"
+                        label="Confirm password"
+                        type={showPassword? "text" : "password"}
+                        value={values.confirmPassword}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        error={touched.confirmPassword && Boolean(errors.confirmPassword)}
+                        helperText={touched.confirmPassword && errors.confirmPassword}
+                        />
+                        <Button 
+                            onClick={handleClickShowPassword}
+                        > 
+                            {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                        </Button>
+                    </Box> */}
+
+                    {/* <FormControl error>
+                        <InputLabel htmlFor='error-label'>Password</InputLabel>
+                        <PasswordField
+                            id='error-label'
+                            value='123'
+                        />
+                        <FormHelperText>Your password is too short</FormHelperText>
+                    </FormControl> */}
+
 
                     <Button 
                         color="primary" 

@@ -12,13 +12,3 @@ export const getVisibleContacts = createSelector(
     },
 );
 
-// =====  getVisibleContacts without memoization
-
-// export const getVisibleContacts = state => {
-//     const allContacts = getContacts(state);
-//     const filter = getFilter(state);
-//     const lowerCasedFilter = filter.toLocaleLowerCase();
-
-//     return allContacts.filter(contact => 
-//         contact.name.toLocaleLowerCase().includes(lowerCasedFilter));
-// };

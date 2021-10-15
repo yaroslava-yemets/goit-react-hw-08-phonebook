@@ -1,7 +1,9 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
-import ContactsWrapper from 'components/ContactsWrapper/ContactsWrapper';
+// import ContactsWrapper from 'components/ContactsWrapper';
 import Appbar from 'components/Appbar';
+import{ authOperations } from './redux/auth';
 // import Registration from './views/Registration';
 // import Login from './views/Login';
 
@@ -14,10 +16,16 @@ const Registration = lazy(() => import('./views/Registration'
   /* webpackChunkName: "registration-wiew" */));
 const Login = lazy(() => import('./views/Login' 
   /* webpackChunkName: "login-wiew" */));
-// const ContactsWrapper = lazy(() => import('./components/ContactsWrapper' 
-//   /* webpackChunkName: "cotacts" */));
+const ContactsWrapper = lazy(() => import('./components/ContactsWrapper' 
+  /* webpackChunkName: "cotacts" */));
 
 function App () {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(authOperations.fetchCurrentUser());
+  }, [dispatch]);
+
   return (
     <>
       <Appbar />
@@ -38,8 +46,8 @@ function App () {
           </Route>
 
           <Route path="/contacts">
-            {/* <ContactsWrapper /> */}
-            <div>Contacts</div>
+            <ContactsWrapper />
+            {/* <div>Contacts</div> */}
           </Route>
 
           <Route>

@@ -17,7 +17,7 @@ const UserMenu = () => {
             <p className={s.userWelcome}>Welcome, {name}</p>
             <button 
                 className={s.logOutBtn}
-                onClick={() => dispatch(authOperations.logOut)}
+                onClick={() => dispatch(authOperations.logOut())}
             >
                 Log out
             </button>

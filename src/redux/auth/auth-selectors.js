@@ -1,6 +1,6 @@
 // import { defaults } from "json-server";
 
-const getIsLoggedIn = state => state.isLoggedIn;
+const getIsLoggedIn = state => state.auth.isLoggedIn;
 
 const getUsername = state => state.auth.user.name;
 
