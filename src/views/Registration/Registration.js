@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { Formik } from 'formik';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
-import Input from '@material-ui/core/Input';
 import TextField from '@material-ui/core/TextField';
 import { authOperations } from 'redux/auth';
 import s from '../Form.module.css';
@@ -17,7 +16,6 @@ const INITIAL_VALUES = {
     name: "",
     email: "",
     password: "",
-    // confirmPassword: "",
 };
 
 const Registration = () => {
@@ -46,39 +44,15 @@ const Registration = () => {
             errors.password = 'Password should contain more then 8 symbols';
         }
 
-        // if (!values.confirmPassword) {
-        //     errors.confirmPassword = 'Required';
-        // } else if (values.confirmPassword.length < 8) {
-        //     errors.confirmPassword = 'Password should contain more then 8 symbols';
-        // } else if (values.confirmPassword !== values.password) {
-        //     errors.confirmPassword = 'Passwords should be equal';
-        // }
-
         return errors;
     }, []);
 
     const handleSubmit = useCallback((values, { setSubmitting }) => {
-        // const { name, email, password } = values;
         console.log('values', values);
         dispatch(authOperations.register(values));
-        // setTimeout(() => {
-        // alert(JSON.stringify(values, null, 2));
-        // setSubmitting(false);
-        // }, 400);
         setSubmitting(false);
-        // values.name = '';
-        // values.password = '';
-        // values.email = '';
     }, [dispatch]);
     
-    // const handleSubmit = e => {
-    //     e.preventDefault();
-    //     dispatch(authOperations.register({ name, email, password }));
-    //     setName('');
-    //     setEmail('');
-    //     setPassword('');
-    // };
-
     const handleClickShowPassword = () => {
         console.log('click');
         setShowPassword(showPassword => !showPassword);
@@ -135,47 +109,6 @@ const Registration = () => {
                             {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
                         </Button>
                     </Box>
-                    {/* <TextField
-                    fullWidth
-                    id="password"
-                    name="password"
-                    label="Password"
-                    type="password"
-                    value={values.password}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                    error={touched.password && Boolean(errors.password)}
-                    helperText={touched.password && errors.password}
-                    />
-                    <Box sx={{ display: 'flex'}}>
-                        <TextField
-                        fullWidth
-                        id="confirmPassword"
-                        name="confirmPassword"
-                        label="Confirm password"
-                        type={showPassword? "text" : "password"}
-                        value={values.confirmPassword}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        error={touched.confirmPassword && Boolean(errors.confirmPassword)}
-                        helperText={touched.confirmPassword && errors.confirmPassword}
-                        />
-                        <Button 
-                            onClick={handleClickShowPassword}
-                        > 
-                            {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-                        </Button>
-                    </Box> */}
-
-                    {/* <FormControl error>
-                        <InputLabel htmlFor='error-label'>Password</InputLabel>
-                        <PasswordField
-                            id='error-label'
-                            value='123'
-                        />
-                        <FormHelperText>Your password is too short</FormHelperText>
-                    </FormControl> */}
-
 
                     <Button 
                         color="primary" 

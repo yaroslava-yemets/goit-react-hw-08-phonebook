@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { createAsyncThunk, isRejectedWithValue } from '@reduxjs/toolkit';
+import Alert from '@mui/material/Alert';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 
 axios.defaults.baseURL = 'http://connections-api.herokuapp.com';
 
@@ -12,23 +13,25 @@ const token = {
     },
 };
 
-export const register = createAsyncThunk('auth/register', async credentials => {
+export const register = createAsyncThunk('auth/register', async (credentials, thunkAPI) => {
     try {
         const { data } = await axios.post('/users/signup', credentials);
         token.set(data.token);
         return data;
     } catch (error) {
-        return new Error(error.massage);
+        alert('Sorry but user with such name already exists, please try another combination');
+        return thunkAPI.rejectWithValue('the user is not logged in');
     }
 });
 
-export const logIn = createAsyncThunk('auth/login', async credentials => {
+export const logIn = createAsyncThunk('auth/login', async (credentials, thunkAPI) => {
     try {
         const { data } = await axios.post('/users/login', credentials);
         token.set(data.token);
         return data;
     } catch (error) {
-        return new Error(error.massage);
+        <Alert  severity="error">Sorry email or password is wrong, please try another combination</Alert>
+        return thunkAPI.rejectWithValue('the user is not logged in');
     }
 });
 

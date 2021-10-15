@@ -34,16 +34,9 @@ const Login = () => {
         } else if (values.password.length < 8) {
             errors.password = 'Password should contain more then 8 symbols';
         }
-
+        
         return errors;
     }, []);
-
-    // const handleSubmit = useCallback((values, { setSubmitting }) => {
-    //     setTimeout(() => {
-    //     alert(JSON.stringify(values, null, 2));
-    //     setSubmitting(false);
-    //     }, 400);
-    // }, []);
 
     const handleSubmit = useCallback((values, { setSubmitting }) => {
         dispatch(authOperations.logIn(values));
@@ -95,18 +88,6 @@ const Login = () => {
                         {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
                     </Button>
                 </Box>
-                {/* <TextField
-                fullWidth
-                id="password"
-                name="password"
-                label="Password"
-                type="password"
-                value={values.password}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                error={touched.password && Boolean(errors.password)}
-                helperText={touched.password && errors.password}
-                /> */}
 
                 <Button 
                     color="primary" 

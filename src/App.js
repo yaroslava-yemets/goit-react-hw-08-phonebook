@@ -1,15 +1,14 @@
 import { lazy, Suspense, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
-// import ContactsWrapper from 'components/ContactsWrapper';
+import PrivateRoute from './components/PrivateRoute';
+import PublicRoute from './components/PublicRoute';
 import Appbar from 'components/Appbar';
-import{ authOperations } from './redux/auth';
-// import Registration from './views/Registration';
-// import Login from './views/Login';
+import{ authOperations, authSelectors } from './redux/auth';
+import s from './App.module.css';
 
-import Regist from './views/HomePage';
-// import s from './App.module.css';
-
+const HomePage = lazy(() => import('./views/HomePage' 
+  /* webpackChunkName: "home-page-view" */));
 const NoSuchPageView = lazy(() => import('./views/NoSuchPageView' 
   /* webpackChunkName: "no-page-view" */));
 const Registration = lazy(() => import('./views/Registration' 
@@ -21,41 +20,40 @@ const ContactsWrapper = lazy(() => import('./components/ContactsWrapper'
 
 function App () {
   const dispatch = useDispatch();
+  const isRefreshingUser = useSelector(authSelectors.getIsRefreshingUser);
 
   useEffect(() => {
     dispatch(authOperations.fetchCurrentUser());
   }, [dispatch]);
 
   return (
-    <>
-      <Appbar />
-      
-      <Suspense fallback={<h1>Loading...</h1>}>
-        <Switch>
-          <Route path="/" exact>
-            {/* <HomePage /> */}
-            <Regist />
-          </Route>
+    !isRefreshingUser && (
+      <div className={s.container}>
+        <Appbar />
+        
+        <Suspense fallback={<h1>Loading...</h1>}>
+          <Switch>
+            <PublicRoute exact path="/">
+              <HomePage />
+            </PublicRoute>
 
-          <Route path="/register" exact>
-            <Registration />
-          </Route>
+            <PublicRoute path="/register" restricted>
+              <Registration />
+            </PublicRoute>
 
-          <Route path="/login">
-            <Login />
-          </Route>
+            <PublicRoute path="/login" restricted redirectTo="/contacts">
+              <Login />
+            </PublicRoute>
 
-          <Route path="/contacts">
-            <ContactsWrapper />
-            {/* <div>Contacts</div> */}
-          </Route>
+            <PrivateRoute path="/contacts" redirectTo="/login">
+              <ContactsWrapper />
+            </PrivateRoute>
 
-          <Route>
-            <NoSuchPageView />
-          </Route>
-        </Switch>
-      </Suspense>
-    </>
+            <Route component={NoSuchPageView} />
+          </Switch>
+        </Suspense>
+      </div>
+    )
   )
 };
 
