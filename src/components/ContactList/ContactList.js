@@ -5,9 +5,9 @@ import { contactsOperations, contactsSelectors } from 'redux/contactForm';
 import s from './ContactList.module.css';
 
 const ContactList = ({ contacts, onDeleteContact, fetchContacts }) => {
-    useEffect(() => {
-        fetchContacts();
-    }, [fetchContacts]);
+    // useEffect(() => {
+    //     fetchContacts();
+    // }, [fetchContacts]);
     
     return contacts.length > 0 && (
         <ul className={s.list}>
@@ -28,13 +28,13 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = dispatch => ({
     onDeleteContact: id => dispatch(contactsOperations.deleteContact(id)),
-    fetchContacts: () => dispatch(contactsOperations.fetchContacts()),
+    // fetchContacts: () => dispatch(contactsOperations.fetchContacts()),
 });
 
 ContactList.propTypes = {
     contacts: PropTypes.arrayOf(PropTypes.object),
     onDeleteContact: PropTypes.func.isRequired,
-    fetchContacts: PropTypes.func,
+    // fetchContacts: PropTypes.func,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactList);

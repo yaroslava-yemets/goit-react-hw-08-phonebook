@@ -1,9 +1,11 @@
 import { lazy, Suspense } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import ContactsWrapper from 'components/ContactsWrapper/ContactsWrapper';
-import Appbar from './components/Appbar'
+import Appbar from 'components/Appbar';
+// import Registration from './views/Registration';
+// import Login from './views/Login';
 
-import Basic from './views/HomePage';
+import Regist from './views/HomePage';
 // import s from './App.module.css';
 
 const NoSuchPageView = lazy(() => import('./views/NoSuchPageView' 
@@ -24,7 +26,7 @@ function App () {
         <Switch>
           <Route path="/" exact>
             {/* <HomePage /> */}
-            <Basic />
+            <Regist />
           </Route>
 
           <Route path="/register" exact>
@@ -36,7 +38,8 @@ function App () {
           </Route>
 
           <Route path="/contacts">
-            <ContactsWrapper />
+            {/* <ContactsWrapper /> */}
+            <div>Contacts</div>
           </Route>
 
           <Route>

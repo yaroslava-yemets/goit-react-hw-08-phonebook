@@ -11,15 +11,16 @@ import {
 } from './contacts-actions';
 import axios from "axios";
 
-axios.defaults.baseURL = 'http://localhost:3000';
+// axios.defaults.baseURL = 'http://localhost:3000';
+axios.defaults.baseURL = 'http://connections-api.herokuapp.com';
 
-export const fetchContacts = () => dispatch => {
-  dispatch(fetchContactsRequest());
+// export const fetchContacts = () => dispatch => {
+//   dispatch(fetchContactsRequest());
 
-  axios.get('/contacts')
-    .then(({ data }) => dispatch(fetchContactsSuccess(data)))
-    .catch(error => dispatch(fetchContactsError(error)));
-};
+//   axios.get('/contacts')
+//     .then(({ data }) => dispatch(fetchContactsSuccess(data)))
+//     .catch(error => dispatch(fetchContactsError(error)));
+// };
 
 export const addContact = (name, number) => dispatch => {
   const contact = {

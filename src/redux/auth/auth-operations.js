@@ -20,3 +20,12 @@ export const logIn = createAsyncThunk('auth/login', async credentials => {
         return new Error(error.massage);
     }
 });
+
+export const logOut = createAsyncThunk('auth/logout', async credentials => {
+    try {
+        const { data } = await axios.post('/users/logout', credentials);
+        return data;
+    } catch (error) {
+        return new Error(error.massage);
+    }
+});
