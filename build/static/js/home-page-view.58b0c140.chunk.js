@@ -1,0 +1,2 @@
+(this["webpackJsonpmy-app"]=this["webpackJsonpmy-app"]||[]).push([[2],{202:function(e,t,r){"use strict";r.r(t);var s=r(1);t.default=function(){return Object(s.jsx)("div",{children:Object(s.jsx)("h1",{style:{fontSize:"56px",color:"#421238",textAlign:"center"},children:"Dear user your contacts will be safe with us, but before you start using our site you have to either register or log in"})})}}}]);
+//# sourceMappingURL=home-page-view.58b0c140.chunk.js.map

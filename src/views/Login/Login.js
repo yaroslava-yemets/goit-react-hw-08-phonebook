@@ -1,13 +1,14 @@
 import React, { useCallback, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Formik } from 'formik';
-import { authOperations } from 'redux/auth';
+import { authOperations, authSelectors } from 'redux/auth';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import Alert from '@mui/material/Alert';
 import s from '../Form.module.css';
 
 const INITIAL_VALUES = {
@@ -17,6 +18,7 @@ const INITIAL_VALUES = {
 
 const Login = () => {
     const dispatch = useDispatch();
+    const errorMessage = useSelector(authSelectors.getErrorMessage);
     const [showPassword, setShowPassword] = useState(false);
 
     const validate = useCallback((values) => {
@@ -34,7 +36,7 @@ const Login = () => {
         } else if (values.password.length < 8) {
             errors.password = 'Password should contain more then 8 symbols';
         }
-        
+
         return errors;
     }, []);
 
@@ -44,7 +46,6 @@ const Login = () => {
     }, [dispatch]);
 
     const handleClickShowPassword = () => {
-        console.log('click');
         setShowPassword(showPassword => !showPassword);
     };
 
@@ -111,6 +112,10 @@ const Login = () => {
                 <span>If you don't have an account  </span>
                 <Link to="/register" className={s.link}>register</Link>
             </div>
+
+            {errorMessage && <Alert severity="error">
+                {errorMessage}
+            </Alert>}
         </div>
     );
 };

@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Alert from '@mui/material/Alert';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 axios.defaults.baseURL = 'http://connections-api.herokuapp.com';
@@ -19,8 +18,7 @@ export const register = createAsyncThunk('auth/register', async (credentials, th
         token.set(data.token);
         return data;
     } catch (error) {
-        alert('Sorry but user with such name already exists, please try another combination');
-        return thunkAPI.rejectWithValue('the user is not logged in');
+        return thunkAPI.rejectWithValue('Sorry but user with such name already exists, please try another combination');
     }
 });
 
@@ -30,8 +28,7 @@ export const logIn = createAsyncThunk('auth/login', async (credentials, thunkAPI
         token.set(data.token);
         return data;
     } catch (error) {
-        <Alert  severity="error">Sorry email or password is wrong, please try another combination</Alert>
-        return thunkAPI.rejectWithValue('the user is not logged in');
+        return thunkAPI.rejectWithValue('Sorry email or password is wrong, please try another combination');
     }
 });
 

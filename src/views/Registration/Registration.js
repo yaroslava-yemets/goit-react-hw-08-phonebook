@@ -1,14 +1,15 @@
 import React, { useCallback, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Formik } from 'formik';
 import Button from '@material-ui/core/Button';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
-import { authOperations } from 'redux/auth';
+import { authOperations, authSelectors } from 'redux/auth';
 import s from '../Form.module.css';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import Alert from '@mui/material/Alert';
 
 
 
@@ -20,6 +21,7 @@ const INITIAL_VALUES = {
 
 const Registration = () => {
     const dispatch = useDispatch();
+    const errorMessage = useSelector(authSelectors.getErrorMessage);
     const [showPassword, setShowPassword] = useState(false);
 
     const validate = useCallback((values) => {
@@ -54,7 +56,6 @@ const Registration = () => {
     }, [dispatch]);
     
     const handleClickShowPassword = () => {
-        console.log('click');
         setShowPassword(showPassword => !showPassword);
     };
 
@@ -133,6 +134,10 @@ const Registration = () => {
                 <span>If you have an account  </span>
                 <Link to="/login" className={s.link}>log in</Link>
             </div>
+
+            {errorMessage && <Alert severity="error">
+                {errorMessage}
+            </Alert>}
         </div>
     )
 };
